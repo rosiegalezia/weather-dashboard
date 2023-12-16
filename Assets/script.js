@@ -2,11 +2,44 @@
 
 
 // Access user's search input
-// Get the coordinates for the location
-// Variables to link to these coordinates in the URL
+// const search = $(".weather-search").val()
 
-// queryURL: https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}.
+const search = $(".weather-search")
+const searchInput = $(".weather-search input")
 
+
+
+search.on("submit", function (event) {
+    event.preventDefault()
+    const cityName = searchInput.val()
+
+    // Get the coordinates for the location
+    // using geocoding API to get lat and long
+    // var geocodeURL: http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=a5fc6a3bb1ef51f3168ed91a99397fb3
+    // Variables to link to these coordinates in the URL
+
+    // // queryURL: https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}.
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",uk&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
+    console.log(queryURL)
+
+
+    // We then created an Fetch call
+    fetch(queryURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(queryURL)
+
+            console.log(data)
+
+            city.text("City name: " + data.name)
+            wind.text("Wind: " + data.wind.speed)
+            humidity.text("Humidity: " + data.main.humidity)
+            temp.text("Temperature: " + data.main.temp + " C")
+        });
+        $(".current-weather").append(data)
+})
 
 // When a user searches for a city they are presented with current and future conditions for that city
 // that city is added to the search history
