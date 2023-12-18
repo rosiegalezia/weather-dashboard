@@ -1,6 +1,5 @@
 // API key: a5fc6a3bb1ef51f3168ed91a99397fb3
 
-
 // Access user's search input
 // const search = $(".weather-search").val()
 
@@ -8,10 +7,12 @@ const search = $(".weather-search")
 const searchInput = $(".weather-search input")
 
 
-
+// Add event listener to form submit
 search.on("submit", function (event) {
-    event.preventDefault()
+    // Get the user input value
+    // event.preventDefault()
     const cityName = searchInput.val()
+    console.log(cityName)
 
     // Get the coordinates for the location
     // using geocoding API to get lat and long
@@ -24,21 +25,21 @@ search.on("submit", function (event) {
 
 
     // We then created an Fetch call
-    fetch(queryURL)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(queryURL)
+    // fetch(queryURL)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         console.log(queryURL)
 
-            console.log(data)
+    //         console.log(data)
 
-            city.text("City name: " + data.name)
-            wind.text("Wind: " + data.wind.speed)
-            humidity.text("Humidity: " + data.main.humidity)
-            temp.text("Temperature: " + data.main.temp + " C")
-        });
-        $(".current-weather").append(data)
+    //         city.text("City name: " + data.name)
+    //         wind.text("Wind: " + data.wind.speed)
+    //         humidity.text("Humidity: " + data.main.humidity)
+    //         temp.text("Temperature: " + data.main.temp + " C")
+    //     });
+    //     $(".current-weather").append(data)
 })
 
 // When a user searches for a city they are presented with current and future conditions for that city
