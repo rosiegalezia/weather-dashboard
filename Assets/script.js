@@ -38,15 +38,18 @@ search.on("submit", function (event) {
             var humidity = $("<p>").text("Humidity: " + data.main.humidity + " %")
             var icon = $("<img>").attr('src', iconurl);
 
-            $(".current-weather").append(date) 
+            $(".current-weather").append(date)
             $(".current-weather").append(temp)
             $(".current-weather").append(wind)
             $(".current-weather").append(humidity)
             $(".current-weather").append(icon)
         });
 
-            // 5-DAY FORECAST REQUIRES A DIFFERENT API
-            // https://openweathermap.org/forecast5
+    // 5-DAY FORECAST REQUIRES A DIFFERENT API
+    // https://openweathermap.org/forecast5
 
-
+    // save search term to local storage and display on left
+    localStorage.setItem("city", searchInput.val())
+    var historyList = $("<li>").text(searchInput.val())
+    $("#history").append(historyList)
 })
