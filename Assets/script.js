@@ -36,7 +36,7 @@ search.on("submit", function (event) {
 
     // GET CURRENT WEATHER
     // Build the API query URL based on the user input value
-    var queryURLcurrent = "https://api.openweathermap.org/data/3.0/onecall?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
+    var queryURLcurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
     console.log(queryURLcurrent)
 
     fetch(queryURLcurrent)
@@ -60,7 +60,7 @@ search.on("submit", function (event) {
             var humidity = $("<p>").text("Humidity: " + data.main.humidity + " %")
             var icon = $("<img>").attr('src', iconurl);
 
-            $(".current-weather").append(date, icon)
+            $(".current-weather").append(date)
             $(".current-weather").append(temp)
             $(".current-weather").append(wind)
             $(".current-weather").append(humidity)
