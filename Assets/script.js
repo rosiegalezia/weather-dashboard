@@ -60,32 +60,34 @@ search.on("submit", function (event) {
             var humidity = $("<p>").text("Humidity: " + data.main.humidity + " %")
             var icon = $("<img>").attr('src', iconurl);
 
-            $(".current-weather").append(date)
+            $(".current-weather").append(date, icon)
             $(".current-weather").append(temp)
             $(".current-weather").append(wind)
             $(".current-weather").append(humidity)
         });
 
-    // // GET 5-DAY FORECAST
-    // var queryURLforecast = "api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3"
-    // // https://openweathermap.org/forecast5
+    // GET 5-DAY FORECAST
+    var queryURLforecast = "api.openweathermap.org/data/2.5/forecast?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3"
 
-    // fetch(queryURLforecast)
-    //     .then(function (response) {
-    //         return response.json();
-    //     })
-    //     .then(function (data) {
-    //         var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
-    //         var temp = $("<p>").text("Temperature: " + data.main.temp + " C")
-    //         var wind = $("<p>").text("Wind speed: " + data.wind.speed + " km/h")
-    //         var humidity = $("<p>").text("Humidity: " + data.main.humidity + " %")
-    //         var icon = $("<img>").attr('src', iconurl);
+    console.log(queryURLforecast)
 
-    //         $(".weather-forecast").append(date, icon)
-    //         $(".weather-forecast").append(temp)
-    //         $(".weather-forecast").append(wind)
-    //         $(".weather-forecast").append(humidity)
-    //     })
+    fetch(queryURLforecast)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (forecastdata) {
+            console.log(forecastdata)
+            // var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
+            // var temp = $("<p>").text("Temperature: " + data.main.temp + " C")
+            // var wind = $("<p>").text("Wind speed: " + data.wind.speed + " km/h")
+            // var humidity = $("<p>").text("Humidity: " + data.main.humidity + " %")
+            // var icon = $("<img>").attr('src', iconurl);
+
+            // $(".weather-forecast").append(date, icon)
+            // $(".weather-forecast").append(temp)
+            // $(".weather-forecast").append(wind)
+            // $(".weather-forecast").append(humidity)
+        })
 
 // ---------------------------------------------------------
     // save search term to local storage and display on left
