@@ -95,26 +95,26 @@ function weatherForecast() {
 
             // get every 8th item in array to get one reading per day
             for (i = 0; i < forecastdata.list.length; i+=8){
-                var forecastCard = $(".card")
 
-            // var iconcode = forecastdata.list[i].weather[i].icon;
-            // var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+            var iconcode = forecastdata.list[i].weather[0].icon;
+            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
             var date = $("<h2>").text(dayjs(forecastdata.list[i].dt_txt).format("dddd, D/M/YYYY"))
-            // var description = $("<h3>").text(forecastdata.list[i].weather[i].description)
+            var description = $("<h3>").text(forecastdata.list[i].weather[0].description)
             var temp = $("<p>").text("Temperature: " + forecastdata.list[i].main.temp + " C")
             var feelslike = $("<p>").text("Feels like: " + forecastdata.list[i].main.feels_like + " C")
             var wind = $("<p>").text("Wind speed: " + forecastdata.list[i].wind.speed + " km/h")
             var humidity = $("<p>").text("Humidity: " + forecastdata.list[i].main.humidity + " %")
-            // var icon = $("<img>").attr('src', iconurl);
+            var icon = $("<img>").attr('src', iconurl);
 
             $(".weather-forecast").append(date)
-            // $(".weather-forecast").append(description)
+            $(".weather-forecast").append(icon)
+            $(".weather-forecast").append(description)
             $(".weather-forecast").append(temp, feelslike)
             $(".weather-forecast").append(wind)
             $(".weather-forecast").append(humidity)
 
-            forecastCard.append($(".weather-forecast"))
+            $(".card").append($(".weather-forecast"))
             }
         })
 }
