@@ -66,10 +66,10 @@ function currentWeather() {
 
             var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
             var description = $("<h3>").text(weatherdata.weather[0].description)
-            var temp = $("<p>").text("Temperature: " + weatherdata.main.temp + " C")
-            var feelslike = $("<p>").text("Feels like: " + weatherdata.main.feels_like + " C")
-            var wind = $("<p>").text("Wind speed: " + weatherdata.wind.speed + " km/h")
-            var humidity = $("<p>").text("Humidity: " + weatherdata.main.humidity + " %")
+            var temp = $("<p>").text("Temperature: " + weatherdata.main.temp + "°C")
+            var feelslike = $("<p>").text("Feels like: " + weatherdata.main.feels_like + "°C")
+            var wind = $("<p>").text("Wind speed: " + weatherdata.wind.speed + "km/h")
+            var humidity = $("<p>").text("Humidity: " + weatherdata.main.humidity + "%")
             var icon = $("<img>").attr('src', iconurl);
 
             todayCard.append(date)
@@ -105,13 +105,13 @@ function weatherForecast() {
             var iconcode = forecastdata.list[i].weather[0].icon;
             var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
-            var day = $("<h2>").text(dayjs(forecastdata.list[i].dt_txt).format("dddd"))
-            var date = $("<h3>").text(dayjs(forecastdata.list[i].dt_txt).format("D/M/YYYY"))
+            var day = $("<h4>").text(dayjs(forecastdata.list[i].dt_txt).format("dddd"))
+            var date = $("<h5>").text(dayjs(forecastdata.list[i].dt_txt).format("D/M/YYYY"))
             var description = $("<h4>").text(forecastdata.list[i].weather[0].description)
-            var temp = $("<p>").text("Temperature: " + forecastdata.list[i].main.temp + " C")
-            var feelslike = $("<p>").text("Feels like: " + forecastdata.list[i].main.feels_like + " C")
-            var wind = $("<p>").text("Wind speed: " + forecastdata.list[i].wind.speed + " km/h")
-            var humidity = $("<p>").text("Humidity: " + forecastdata.list[i].main.humidity + " %")
+            var temp = $("<p>").text("Temperature: " + forecastdata.list[i].main.temp + "°C")
+            var feelslike = $("<p>").text("Feels like: " + forecastdata.list[i].main.feels_like + "°C")
+            var wind = $("<p>").text("Wind speed: " + forecastdata.list[i].wind.speed + "km/h")
+            var humidity = $("<p>").text("Humidity: " + forecastdata.list[i].main.humidity + "%")
             var icon = $("<img>").attr('src', iconurl);
 
             dayCard.append(day)
