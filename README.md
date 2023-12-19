@@ -1,12 +1,11 @@
 # weather-dashboard
-A weather dashboard created for the week 8 challenge to allow travellers to see the weather forecast in multiple cities
+A weather dashboard created for the week 8 challenge to allow travellers to see the weather forecast in multiple cities.
 
 ## Description
 
 This is a weather forecast dashboard created to bring together content learnt in the bootcamp so far (javascript, dayjs, JQuery, APIs) and specifically practice use of server APIs.
 
 The OpenWeatherMap API is used to retrieve and display the current weather, as well as the 5-day forecast, for a location searched for by the user, and saves the last five searches to the local storage for easy retrieval.
-
 
 
 ## Installation
@@ -25,12 +24,12 @@ The deployed site is available at: https://rosiegalezia.github.io/weather-dashbo
 
 A screenshot of the site and the local storage can be seen below:
 
-![Planner site with local memory on the right-hand-side](../daily-planner/Assets/images/Screenshot-1.png)
+![Weather Dashboard](../weather-dashboard/Assets/Screenshot.png)
 
 
 ## Credits
 
-Help was received from tutors ADD NAMES HERE.
+Help was received from tutors Donnahue George and Mark Utsby.
 
 ## License
 
