@@ -8,17 +8,14 @@ const searchInput = $(".weather-search") // variable to access search term
 var previousSearches
 
 // if local storage contains previous city searches, retrieve them
-if (localStorage.getItem("city")){
+if (localStorage.getItem("city")) {
     previousSearches = [localStorage.getItem("city")]
 } else {
     // else create empty array
-previousSearches = []
+    previousSearches = []
 }
 
-// Add event listener to form submit
-search.on("submit", function (event) {
-    event.preventDefault()
-
+function getCoordinates(){
     // Call geocoding API to get the coordinates
 
     var queryURLgeo = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchInput.val() + "&limit=1&appid=a5fc6a3bb1ef51f3168ed91a99397fb3"
@@ -42,7 +39,9 @@ search.on("submit", function (event) {
             localStorage.setItem("long", long)
 
         })
+}
 
+function currentWeather(){
     // GET CURRENT WEATHER
     // Build the API query URL based on the user input value
     var queryURLcurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
@@ -77,7 +76,9 @@ search.on("submit", function (event) {
             $(".current-weather").append(wind)
             $(".current-weather").append(humidity)
         });
+}
 
+function weatherForecast(){
     // GET 5-DAY FORECAST
     var queryURLforecast = "https://api.openweathermap.org/data/2.5/forecast?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
     console.log(localStorage.getItem("lat"))
@@ -101,6 +102,18 @@ search.on("submit", function (event) {
             // $(".weather-forecast").append(wind)
             // $(".weather-forecast").append(humidity)
         })
+}
+
+// Add event listener to form submit
+search.on("submit", function (event) {
+    event.preventDefault()
+
+    getCoordinates()
+    currentWeather()
+    weatherForecast()
+
+
+    
 
     //       // if there's nothing in the form entered, don't print to the page
     //     if (!searchInput) {
@@ -110,17 +123,28 @@ search.on("submit", function (event) {
 
 
     // --------------------------------------------------------
-    
-    // save search term to local storage
-    previousSearches.push(searchInput.val())
-    // localStorage.setItem("city", searchInput.val())
-    localStorage.setItem("city", previousSearches)
+
+
+
+    // don't push duplicate searches to the array
+    if (!previousSearches.includes(searchInput.val())) {
+        // save search term to local storage
+        previousSearches.push(searchInput.val())
+        // localStorage.setItem("city", searchInput.val())
+        localStorage.setItem("city", previousSearches)
+    }
+
+
 
     //  and display in the 'history' card (if it isn't already there)
     var historyListEl = $("#history")
 
-    historyListEl.append('<li>' + searchInput.val() + '</li>')
+    historyListEl.text("")
 
+    for (i = 0; i < previousSearches.length; i++) {
+        historyListEl.append("<li>" + previousSearches[i] + "</li>")
+    }
+// how do I cap the history at eg 5??
     historyListEl.on("click", function (event) {
         // Build the API query URL based on the history stored in local storage
         console.log(event.target)
@@ -128,3 +152,5 @@ search.on("submit", function (event) {
     })
 
 })
+
+    // event listener for history list items
