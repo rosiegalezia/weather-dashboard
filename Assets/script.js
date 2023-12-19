@@ -52,6 +52,7 @@ function currentWeather() {
             return response.json();
         })
         .then(function (weatherdata) {
+            $("#today").html("")
             // CURRENT WEATHER
             // clear the currentweather text content from previous search
             $(".current-weather").text("")
@@ -94,6 +95,8 @@ function weatherForecast() {
             return response.json();
         })
         .then(function (forecastdata) {
+
+            $("#forecast").html("")
             
             console.log(forecastdata)
 
@@ -135,18 +138,6 @@ search.on("submit", async function (event) {
         currentWeather()
         weatherForecast()
 
-
-
-
-
-    //       // if there's nothing in the form entered, don't print to the page
-    //     if (!searchInput) {
-    //     console.log('Please enter a city');
-    //     return;
-    //   }
-
-
-    // --------------------------------------------------------
 
 
 
