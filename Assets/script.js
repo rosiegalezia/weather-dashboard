@@ -90,24 +90,32 @@ function weatherForecast() {
             return response.json();
         })
         .then(function (forecastdata) {
+            
             console.log(forecastdata)
 
-            var iconcode = forecastdata.list[0].weather[0].icon;
-            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+            // get every 8th item in array to get one reading per day
+            for (i = 0; i < forecastdata.list.length; i+=8){
+                var forecastCard = $(".card")
 
-            var date = $("<h2>").text(dayjs(forecastdata.list[0].dt_txt).format("dddd, D/M/YYYY, HH:mm"))
-            var description = $("<h3>").text(forecastdata.list[0].weather[0].description)
-            var temp = $("<p>").text("Temperature: " + forecastdata.list[0].main.temp + " C")
-            var feelslike = $("<p>").text("Feels like: " + forecastdata.list[0].main.feels_like + " C")
-            var wind = $("<p>").text("Wind speed: " + forecastdata.list[0].wind.speed + " km/h")
-            var humidity = $("<p>").text("Humidity: " + forecastdata.list[0].main.humidity + " %")
-            var icon = $("<img>").attr('src', iconurl);
+            // var iconcode = forecastdata.list[i].weather[i].icon;
+            // var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+
+            var date = $("<h2>").text(dayjs(forecastdata.list[i].dt_txt).format("dddd, D/M/YYYY"))
+            // var description = $("<h3>").text(forecastdata.list[i].weather[i].description)
+            var temp = $("<p>").text("Temperature: " + forecastdata.list[i].main.temp + " C")
+            var feelslike = $("<p>").text("Feels like: " + forecastdata.list[i].main.feels_like + " C")
+            var wind = $("<p>").text("Wind speed: " + forecastdata.list[i].wind.speed + " km/h")
+            var humidity = $("<p>").text("Humidity: " + forecastdata.list[i].main.humidity + " %")
+            // var icon = $("<img>").attr('src', iconurl);
 
             $(".weather-forecast").append(date)
-            $(".weather-forecast").append(description, icon)
+            // $(".weather-forecast").append(description)
             $(".weather-forecast").append(temp, feelslike)
             $(".weather-forecast").append(wind)
             $(".weather-forecast").append(humidity)
+
+            forecastCard.append($(".weather-forecast"))
+            }
         })
 }
 
@@ -137,7 +145,7 @@ search.on("submit", async function (event) {
     // don't push duplicate searches to the array
     if (!previousSearches.includes(searchInput.val())) {
         // save search term to local storage
-        previousSearches.push(searchInput.val())
+        previousSearches.unshift(searchInput.val())
         // localStorage.setItem("city", searchInput.val())
         localStorage.setItem("city", previousSearches)
     }
@@ -169,4 +177,9 @@ historyListEl.on("click", function (event) {
     console.log(event.target.textContent)
     
 
+})
+
+$(".clear-button").on("click", function(){
+    localStorage.clear()
+    historyListEl.text("")
 })
