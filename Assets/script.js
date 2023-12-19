@@ -18,7 +18,7 @@ if (localStorage.getItem("city")) {
 async function getCoordinates(userInput) {
     // Call geocoding API to get the coordinates
 
-    var queryURLgeo = "http://api.openweathermap.org/geo/1.0/direct?q=" + userInput + "&limit=1&appid=a5fc6a3bb1ef51f3168ed91a99397fb3"
+    var queryURLgeo = "https://api.openweathermap.org/geo/1.0/direct?q=" + userInput + "&limit=1&appid=a5fc6a3bb1ef51f3168ed91a99397fb3"
     console.log(queryURLgeo)
 
     fetch(queryURLgeo)
@@ -60,7 +60,7 @@ function currentWeather() {
             console.log(weatherdata)
 
             var iconcode = weatherdata.weather[0].icon;
-            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+            var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
             var todayCard = $("<div>")
 
@@ -103,7 +103,7 @@ function weatherForecast() {
                 var dayCard = $("<div>").addClass("five-day-card")
 
             var iconcode = forecastdata.list[i].weather[0].icon;
-            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+            var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
             var day = $("<h4>").text(dayjs(forecastdata.list[i].dt_txt).format("dddd"))
             var date = $("<h5>").text(dayjs(forecastdata.list[i].dt_txt).format("D/M/YYYY"))
