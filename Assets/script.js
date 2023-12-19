@@ -1,5 +1,5 @@
 // API key: a5fc6a3bb1ef51f3168ed91a99397fb3
-
+var historyListEl = $("#history") // variable for history section
 const search = $("#search-form") // variable for form input
 const searchInput = $(".weather-search") // variable to access search term
 
@@ -15,10 +15,10 @@ if (localStorage.getItem("city")) {
     previousSearches = []
 }
 
-function getCoordinates(){
+async function getCoordinates(userInput) {
     // Call geocoding API to get the coordinates
 
-    var queryURLgeo = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchInput.val() + "&limit=1&appid=a5fc6a3bb1ef51f3168ed91a99397fb3"
+    var queryURLgeo = "http://api.openweathermap.org/geo/1.0/direct?q=" + userInput + "&limit=1&appid=a5fc6a3bb1ef51f3168ed91a99397fb3"
     console.log(queryURLgeo)
 
     fetch(queryURLgeo)
@@ -41,7 +41,7 @@ function getCoordinates(){
         })
 }
 
-function currentWeather(){
+function currentWeather() {
     // GET CURRENT WEATHER
     // Build the API query URL based on the user input value
     var queryURLcurrent = "https://api.openweathermap.org/data/2.5/weather?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
@@ -78,7 +78,7 @@ function currentWeather(){
         });
 }
 
-function weatherForecast(){
+function weatherForecast() {
     // GET 5-DAY FORECAST
     var queryURLforecast = "https://api.openweathermap.org/data/2.5/forecast?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
     console.log(localStorage.getItem("lat"))
@@ -105,15 +105,16 @@ function weatherForecast(){
 }
 
 // Add event listener to form submit
-search.on("submit", function (event) {
+search.on("submit", async function (event) {
     event.preventDefault()
 
-    getCoordinates()
-    currentWeather()
-    weatherForecast()
+    await getCoordinates(searchInput.val())
+        currentWeather()
+        weatherForecast()
 
 
-    
+
+
 
     //       // if there's nothing in the form entered, don't print to the page
     //     if (!searchInput) {
@@ -137,20 +138,28 @@ search.on("submit", function (event) {
 
 
     //  and display in the 'history' card (if it isn't already there)
-    var historyListEl = $("#history")
-
+    
+    // clear the history before adding the previous searches to it
     historyListEl.text("")
 
+    // cap the history at five previous searches
     for (i = 0; i < previousSearches.length; i++) {
-        historyListEl.append("<li>" + previousSearches[i] + "</li>")
+        // if this is item 0-4 in the previousSearch variable add it to the history section, 
+        if (0<i<4) {
+            historyListEl.append("<li>" + previousSearches[i] + "</li>")
+        }
+        // else do nothing
     }
-// how do I cap the history at eg 5??
-    historyListEl.on("click", function (event) {
-        // Build the API query URL based on the history stored in local storage
-        console.log(event.target)
 
-    })
+
 
 })
 
-    // event listener for history list items
+// event listener for history list items
+
+historyListEl.on("click", function (event) {
+    // Build the API query URL based on the history stored in local storage
+    console.log(event.target.textContent)
+    
+
+})
