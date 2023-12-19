@@ -3,6 +3,18 @@
 const search = $("#search-form") // variable for form input
 const searchInput = $(".weather-search") // variable to access search term
 
+// create array for previous searches
+
+var previousSearches
+
+// if local storage contains previous city searches, retrieve them
+if (localStorage.getItem("city")){
+    previousSearches = [localStorage.getItem("city")]
+} else {
+    // else create empty array
+previousSearches = []
+}
+
 // Add event listener to form submit
 search.on("submit", function (event) {
     event.preventDefault()
@@ -67,28 +79,28 @@ search.on("submit", function (event) {
         });
 
     // GET 5-DAY FORECAST
-    // var queryURLforecast = "api.openweathermap.org/data/2.5/forecast?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
-    // console.log(localStorage.getItem("lat"))
-    // console.log(localStorage.getItem("long"))
-    // console.log(queryURLforecast)
+    var queryURLforecast = "https://api.openweathermap.org/data/2.5/forecast?lat=" + localStorage.getItem("lat") + "&lon=" + localStorage.getItem("long") + "&appid=a5fc6a3bb1ef51f3168ed91a99397fb3" + "&units=metric"
+    console.log(localStorage.getItem("lat"))
+    console.log(localStorage.getItem("long"))
+    console.log(queryURLforecast)
 
-    // fetch(queryURLforecast)
-    //     .then(function (response) {
-    //         return response.json();
-    //     })
-    //     .then(function (forecastdata) {
-    //         console.log(forecastdata)
-    //         // var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
-    //         var temp = $("<p>").text("Temperature: " + forecastdata.main.temp + " C")
-    //         var wind = $("<p>").text("Wind speed: " + forecastdata.wind.speed + " km/h")
-    //         var humidity = $("<p>").text("Humidity: " + forecastdata.main.humidity + " %")
-    //         var icon = $("<img>").attr('src', iconurl);
+    fetch(queryURLforecast)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (forecastdata) {
+            console.log(forecastdata)
+            // var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
+            // var temp = $("<p>").text("Temperature: " + forecastdata.main.temp + " C")
+            // var wind = $("<p>").text("Wind speed: " + forecastdata.wind.speed + " km/h")
+            // var humidity = $("<p>").text("Humidity: " + forecastdata.main.humidity + " %")
+            // var icon = $("<img>").attr('src', iconurl);
 
-    //         $(".weather-forecast").append(date, icon)
-    //         $(".weather-forecast").append(temp)
-    //         $(".weather-forecast").append(wind)
-    //         $(".weather-forecast").append(humidity)
-    //     })
+            // $(".weather-forecast").append(date, icon)
+            // $(".weather-forecast").append(temp)
+            // $(".weather-forecast").append(wind)
+            // $(".weather-forecast").append(humidity)
+        })
 
     //       // if there's nothing in the form entered, don't print to the page
     //     if (!searchInput) {
@@ -97,9 +109,12 @@ search.on("submit", function (event) {
     //   }
 
 
-    // ---------------------------------------------------------
+    // --------------------------------------------------------
+    
     // save search term to local storage
-    localStorage.setItem("city", searchInput.val())
+    previousSearches.push(searchInput.val())
+    // localStorage.setItem("city", searchInput.val())
+    localStorage.setItem("city", previousSearches)
 
     //  and display in the 'history' card (if it isn't already there)
     var historyListEl = $("#history")
@@ -107,9 +122,9 @@ search.on("submit", function (event) {
     historyListEl.append('<li>' + searchInput.val() + '</li>')
 
     historyListEl.on("click", function (event) {
-    // Build the API query URL based on the history stored in local storage
+        // Build the API query URL based on the history stored in local storage
         console.log(event.target)
-    
+
     })
 
 })
