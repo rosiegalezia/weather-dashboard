@@ -91,16 +91,23 @@ function weatherForecast() {
         })
         .then(function (forecastdata) {
             console.log(forecastdata)
-            // var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
-            // var temp = $("<p>").text("Temperature: " + forecastdata.main.temp + " C")
-            // var wind = $("<p>").text("Wind speed: " + forecastdata.wind.speed + " km/h")
-            // var humidity = $("<p>").text("Humidity: " + forecastdata.main.humidity + " %")
-            // var icon = $("<img>").attr('src', iconurl);
 
-            // $(".weather-forecast").append(date, icon)
-            // $(".weather-forecast").append(temp)
-            // $(".weather-forecast").append(wind)
-            // $(".weather-forecast").append(humidity)
+            var iconcode = forecastdata.list[0].weather[0].icon;
+            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+
+            var date = $("<h2>").text(dayjs(forecastdata.list[0].dt_txt).format("dddd, D/M/YYYY, HH:mm"))
+            var description = $("<h3>").text(forecastdata.list[0].weather[0].description)
+            var temp = $("<p>").text("Temperature: " + forecastdata.list[0].main.temp + " C")
+            var feelslike = $("<p>").text("Feels like: " + forecastdata.list[0].main.feels_like + " C")
+            var wind = $("<p>").text("Wind speed: " + forecastdata.list[0].wind.speed + " km/h")
+            var humidity = $("<p>").text("Humidity: " + forecastdata.list[0].main.humidity + " %")
+            var icon = $("<img>").attr('src', iconurl);
+
+            $(".weather-forecast").append(date)
+            $(".weather-forecast").append(description, icon)
+            $(".weather-forecast").append(temp, feelslike)
+            $(".weather-forecast").append(wind)
+            $(".weather-forecast").append(humidity)
         })
 }
 
