@@ -62,6 +62,8 @@ function currentWeather() {
             var iconcode = weatherdata.weather[0].icon;
             var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
+            var todayCard = $("<div>")
+
             var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
             var description = $("<h3>").text(weatherdata.weather[0].description)
             var temp = $("<p>").text("Temperature: " + weatherdata.main.temp + " C")
@@ -70,11 +72,13 @@ function currentWeather() {
             var humidity = $("<p>").text("Humidity: " + weatherdata.main.humidity + " %")
             var icon = $("<img>").attr('src', iconurl);
 
-            $(".current-weather").append(date)
-            $(".current-weather").append(description, icon)
-            $(".current-weather").append(temp, feelslike)
-            $(".current-weather").append(wind)
-            $(".current-weather").append(humidity)
+            todayCard.append(date)
+            todayCard.append(description, icon)
+            todayCard.append(temp, feelslike)
+            todayCard.append(wind)
+            todayCard.append(humidity)
+
+            $(".current-weather").append(todayCard)
         });
 }
 
@@ -96,6 +100,8 @@ function weatherForecast() {
             // get every 8th item in array to get one reading per day
             for (i = 0; i < forecastdata.list.length; i+=8){
 
+                var dayCard = $("<div>")
+
             var iconcode = forecastdata.list[i].weather[0].icon;
             var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
@@ -107,14 +113,14 @@ function weatherForecast() {
             var humidity = $("<p>").text("Humidity: " + forecastdata.list[i].main.humidity + " %")
             var icon = $("<img>").attr('src', iconurl);
 
-            $(".weather-forecast").append(date)
-            $(".weather-forecast").append(icon)
-            $(".weather-forecast").append(description)
-            $(".weather-forecast").append(temp, feelslike)
-            $(".weather-forecast").append(wind)
-            $(".weather-forecast").append(humidity)
+            dayCard.append(date)
+            dayCard.append(icon)
+            dayCard.append(description)
+            dayCard.append(temp, feelslike)
+            dayCard.append(wind)
+            dayCard.append(humidity)
 
-            $(".card").append($(".weather-forecast"))
+            $(".weather-forecast").append(dayCard)
             }
         })
 }
