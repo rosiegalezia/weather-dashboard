@@ -100,19 +100,21 @@ function weatherForecast() {
             // get every 8th item in array to get one reading per day
             for (i = 0; i < forecastdata.list.length; i+=8){
 
-                var dayCard = $("<div>")
+                var dayCard = $("<div>").addClass("five-day-card")
 
             var iconcode = forecastdata.list[i].weather[0].icon;
             var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
-            var date = $("<h2>").text(dayjs(forecastdata.list[i].dt_txt).format("dddd, D/M/YYYY"))
-            var description = $("<h3>").text(forecastdata.list[i].weather[0].description)
+            var day = $("<h2>").text(dayjs(forecastdata.list[i].dt_txt).format("dddd"))
+            var date = $("<h3>").text(dayjs(forecastdata.list[i].dt_txt).format("D/M/YYYY"))
+            var description = $("<h4>").text(forecastdata.list[i].weather[0].description)
             var temp = $("<p>").text("Temperature: " + forecastdata.list[i].main.temp + " C")
             var feelslike = $("<p>").text("Feels like: " + forecastdata.list[i].main.feels_like + " C")
             var wind = $("<p>").text("Wind speed: " + forecastdata.list[i].wind.speed + " km/h")
             var humidity = $("<p>").text("Humidity: " + forecastdata.list[i].main.humidity + " %")
             var icon = $("<img>").attr('src', iconurl);
 
+            dayCard.append(day)
             dayCard.append(date)
             dayCard.append(icon)
             dayCard.append(description)

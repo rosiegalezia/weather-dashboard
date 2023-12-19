@@ -1805,3 +1805,7 @@
   li {
     list-style: none;
   }
+
+  .day-card {
+    padding: 15px;
+  }
