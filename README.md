@@ -7,6 +7,12 @@ This is a weather forecast dashboard created to bring together content learnt in
 
 The OpenWeatherMap API is used to retrieve and display the current weather, as well as the 5-day forecast, for a location searched for by the user, and saves the last five searches to the local storage for easy retrieval.
 
+Some points to improve when I revisit this project are:
+* using the 'timezone' data from OpenWeatherMap together with day.js to display the local time for the location searched for
+* displaying the 5-day forecast as separate cards
+* displaying the city better in the 'current weather' card
+* fixing the display of the 'history' list to cap the list at 5 items, and be contained within the column
+
 
 ## Installation
 

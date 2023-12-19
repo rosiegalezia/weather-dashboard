@@ -65,7 +65,7 @@ function currentWeather() {
 
             var todayCard = $("<div>")
 
-            var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY, HH:mm"))
+            var date = $("<h2>").text(dayjs().format("dddd, D/M/YYYY"))
             var description = $("<h3>").text(weatherdata.weather[0].description)
             var temp = $("<p>").text("Temperature: " + weatherdata.main.temp + "°C")
             var feelslike = $("<p>").text("Feels like: " + weatherdata.main.feels_like + "°C")
@@ -73,7 +73,8 @@ function currentWeather() {
             var humidity = $("<p>").text("Humidity: " + weatherdata.main.humidity + "%")
             var icon = $("<img>").attr('src', iconurl);
 
-            todayCard.append(date)
+            todayCard.append(searchInput.val(), date)
+            todayCard.append(location)
             todayCard.append(description, icon)
             todayCard.append(temp, feelslike)
             todayCard.append(wind)
@@ -134,12 +135,10 @@ function weatherForecast() {
 search.on("submit", async function (event) {
     event.preventDefault()
 
+    // call and display API calls ONCE coordinates are retrieved
     await getCoordinates(searchInput.val())
         currentWeather()
         weatherForecast()
-
-
-
 
     // don't push duplicate searches to the array
     if (!previousSearches.includes(searchInput.val())) {
@@ -148,10 +147,6 @@ search.on("submit", async function (event) {
         // localStorage.setItem("city", searchInput.val())
         localStorage.setItem("city", previousSearches)
     }
-
-
-
-    //  and display in the 'history' card (if it isn't already there)
     
     // clear the history before adding the previous searches to it
     historyListEl.text("")
@@ -165,20 +160,16 @@ search.on("submit", async function (event) {
         // else do nothing
     }
 
-
-
 })
 
 // event listener for history list items
 
 historyListEl.on("click", function (event) {
     // Build the API query URL based on the history stored in local storage
-    console.log(event.target.textContent)
-    
-
+    console.log(event.target.textContent) 
 })
 
 $(".clear-button").on("click", function(){
     localStorage.clear()
-    historyListEl.text("")
+    historyListEl.html("")
 })
